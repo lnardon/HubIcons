@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Hub Icons",
+  "description": "Extension to add iconography to files on Github. Open source extension by github.com/lnardon.",
+  "version": "0.1",
+  "permissions": ["scripting", "storage", "activeTab", "tabs"],
+  "host_permissions": ["https://www.github.com/*"],
+  "background": {
+    "service_worker": "./background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.github.com/*"],
+      "js": ["./content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Hub Icons",
+    "default_icon": "./logo.png"
+  },
+  "icons": {
+    "16": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
+  }
+}
