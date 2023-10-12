@@ -19,7 +19,7 @@
 
     const basicMap = {
         js : "https://github.com/lnardon/HubIcons/blob/master/icons/basic/js.svg?raw=true",
-        ts : "https://github.com/lnardon/HubIcons/blob/master/icons/basic/ts.svg?raw=true",
+        ts : "https://github.com/lnardon/HubIcons/blob/master/icons/basic/typescript.svg?raw=true",
         html: "https://github.com/lnardon/HubIcons/blob/master/icons/basic/html.svg?raw=true",   
         css : "https://github.com/lnardon/HubIcons/blob/master/icons/basic/css.svg?raw=true",
         go:   "https://github.com/lnardon/HubIcons/blob/master/icons/basic/go.svg?raw=true",
