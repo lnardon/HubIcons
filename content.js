@@ -28,7 +28,10 @@
 	png: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/image.png?raw=true",
 	jpg: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/image.png?raw=true",
 	gif: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/image.png?raw=true",
-	jpeg: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/image.png?raw=true"
+	jpeg: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/image.png?raw=true",
+	Dockerfile: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/docker.png?raw=true",
+	env: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/key.png?raw=true",
+	prisma: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/sql.png?raw=true"
     }
 
     const basicMap = {
@@ -64,7 +67,7 @@
             imageElement.style.width = "1rem";
             imageElement.style.height = "1rem";
         	// imageElement.src = chrome.runtime.getURL(`/icons/${extensionToFileMap[fileExtension]}.png`);
-            imageElement.src = myCustomMap[fileExtension] || "https://github.com/lnardon/HubIcons/blob/master/icons/typescript.png?raw=true";
+            imageElement.src = myCustomMap[fileExtension] || "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true";
             files[i].children[0].removeChild(files[i].children[0].children.item(0));
             files[i].children[0].append(imageElement);
             files[i].children[0].style.display = "flex";
