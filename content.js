@@ -4,7 +4,7 @@
     };
 
     // TODO: Delete this and use only local images
-    const 3dMap = {        
+    const myCustomMap = {        
 	js : "https://github.com/lnardon/HubIcons/blob/master/icons/3d/javascript.png?raw=true",
         ts : "https://github.com/lnardon/HubIcons/blob/master/icons/3d/typescript.png?raw=true",
         html: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/html.png?raw=true",   
@@ -64,7 +64,7 @@
             imageElement.style.width = "1rem";
             imageElement.style.height = "1rem";
         	// imageElement.src = chrome.runtime.getURL(`/icons/${extensionToFileMap[fileExtension]}.png`);
-            imageElement.src = 3dMap[fileExtension] || "https://github.com/lnardon/HubIcons/blob/master/icons/typescript.png?raw=true";
+            imageElement.src = myCustomMap[fileExtension] || "https://github.com/lnardon/HubIcons/blob/master/icons/typescript.png?raw=true";
             files[i].children[0].removeChild(files[i].children[0].children.item(0));
             files[i].children[0].append(imageElement);
             files[i].children[0].style.display = "flex";
@@ -81,7 +81,7 @@
             imageElement.style.width = "1rem";
             imageElement.style.height = "1rem";
             // imageElement.src = chrome.runtime.getURL(`/icons/${extensionToFileMap[fileExtension]}.png`);
-            imageElement.src = 3dMap[fileExtension] || "https://github.com/lnardon/HubIcons/blob/master/icons/typescript.png?raw=true";
+            imageElement.src = myCustomMap[fileExtension] || "https://github.com/lnardon/HubIcons/blob/master/icons/typescript.png?raw=true";
             files[i].children[0].removeChild(files[i].children[0].children.item(0));
             files[i].children[0].append(imageElement);
 
