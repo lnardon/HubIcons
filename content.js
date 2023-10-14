@@ -78,7 +78,7 @@ const myCustomMap = [
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/key.png?raw=true",
-    extensions: ["env", "env.local", "env.development", "env.test", "env.prod"],
+    extensions: ["env", "local", "development", "prod"],
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/folder.png?raw=true",
@@ -181,53 +181,55 @@ const basicMap = [
   },
 ];
 
-let files;
-let aux = document.querySelectorAll(".Details");
-if (aux.length > 0) {
-  files = [
-    ...[...document.querySelectorAll(".Details")][1].children[0].children,
-  ].slice(1);
-  for (let i = 0; i < files.length; i++) {
-    let parentElement = files[i].children[1];
-    let fileExtension = [...parentElement.children][0].innerText
-      .split(".")
-      .pop()
-      .toLowerCase();
-    let imageElement = document.createElement("img");
-    imageElement.style.width = "1rem";
-    imageElement.style.height = "1rem";
-    imageElement.src =
-      myCustomMap.find(
-        (element) => element.extensions.indexOf(fileExtension) > -1
-      )?.icon ||
-      "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true";
-    files[i].children[0].removeChild(files[i].children[0].children.item(0));
-    files[i].children[0].append(imageElement);
-    files[i].children[0].style.display = "flex";
-    files[i].children[0].style.alignItems = "center";
-    files[i].children[0].style.justifyContent = "center";
+setTimeout(() => {
+  let files;
+  const repoFirstPageIconSection = document.querySelectorAll(".Details");
+  if (repoFirstPageIconSection.length > 0) {
+    files = [
+      ...[...document.querySelectorAll(".Details")][1].children[0].children,
+    ].slice(1);
+    for (let i = 0; i < files.length; i++) {
+      let parentElement = files[i].children[1];
+      let fileExtension = [...parentElement.children][0].innerText
+        .split(".")
+        .pop()
+        .toLowerCase();
+      let imageElement = document.createElement("img");
+      imageElement.style.width = "1rem";
+      imageElement.style.height = "1rem";
+      imageElement.src =
+        myCustomMap.find(
+          (element) => element.extensions.indexOf(fileExtension) > -1
+        )?.icon ||
+        "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true";
+      files[i].children[0].removeChild(files[i].children[0].children.item(0));
+      files[i].children[0].append(imageElement);
+      files[i].children[0].style.display = "flex";
+      files[i].children[0].style.alignItems = "center";
+      files[i].children[0].style.justifyContent = "center";
+    }
+  } else {
+    files = [...[...document.querySelectorAll("tbody")][0].children];
+    for (let i = 0; i < files.length; i++) {
+      let parentElement = files[i]?.children[1]?.children[0];
+      if (parentElement) {
+        let fileExtension = parentElement?.children
+          ? [...parentElement.children][1]
+              .querySelector("a")
+              ?.innerText?.split(".")
+              .pop()
+          : [];
+        let imageElement = document.createElement("img");
+        imageElement.style.width = "1rem";
+        imageElement.style.height = "1rem";
+        imageElement.src =
+          myCustomMap.find(
+            (element) => element.extensions.indexOf(fileExtension) > -1
+          )?.icon ||
+          "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true";
+        parentElement.removeChild(parentElement.children.item(0));
+        parentElement?.prepend(imageElement);
+      }
+    }
   }
-} else {
-  files = [...[...document.querySelectorAll("tbody")][0].children];
-  for (let i = 0; i < files.length; i++) {
-    let parentElement = files[1]?.children[1]?.children[0];
-    let fileExtension = [...parentElement.children][1]
-      ?.querySelector("a")
-      ?.innerText?.split(".")
-      .pop();
-    let imageElement = document.createElement("img");
-    imageElement.style.width = "1rem";
-    imageElement.style.height = "1rem";
-    imageElement.src =
-      myCustomMap.find(
-        (element) => element.extensions.indexOf(fileExtension) > -1
-      )?.icon ||
-      "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true";
-    parentElement.removeChild(parentElement.children.item(0));
-    parentElement?.children?.item(0)?.append(imageElement);
-    console.log(parentElement.children.item(0));
-    parentElement.style.display = "flex";
-    parentElement.style.alignItems = "center";
-    parentElement.style.justifyContent = "center";
-  }
-}
+}, 1000);
