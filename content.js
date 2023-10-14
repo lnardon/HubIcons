@@ -14,7 +14,11 @@ const myCustomMap = [
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/css.png?raw=true",
-    extensions: ["css", "scss"],
+    extensions: ["css"],
+  },
+  {
+    icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/sass.png?raw=true",
+    extensions: ["scss","sass"]
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/go.png?raw=true",
@@ -65,7 +69,7 @@ const myCustomMap = [
     extensions: ["scala"],
   },
   {
-    icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/sql.png?raw=true",
+    icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/database.png?raw=true",
     extensions: ["sql", "prisma"],
   },
   {
@@ -74,11 +78,11 @@ const myCustomMap = [
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/docker.png?raw=true",
-    extensions: ["Dockerfile"],
+    extensions: ["dockerfile"],
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/key.png?raw=true",
-    extensions: ["env", "local", "development", "prod"],
+    extensions: ["env", "local", "development", "prod","key","keys"],
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/folder.png?raw=true",
@@ -96,6 +100,10 @@ const myCustomMap = [
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/react.png?raw=true",
     extensions: ["jsx", "tsx"],
   },
+  {
+      icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/solidity.png?raw=true",
+      extensions: ["sol"]
+  } 
 ];
 
 const basicMap = [
