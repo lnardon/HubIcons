@@ -18,7 +18,7 @@ const myCustomMap = [
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/sass.png?raw=true",
-    extensions: ["scss","sass"]
+    extensions: ["scss", "sass"],
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/go.png?raw=true",
@@ -82,7 +82,7 @@ const myCustomMap = [
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/key.png?raw=true",
-    extensions: ["env", "local", "development", "prod","key","keys"],
+    extensions: ["env", "local", "development", "prod", "key", "keys"],
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/folder.png?raw=true",
@@ -101,9 +101,17 @@ const myCustomMap = [
     extensions: ["jsx", "tsx"],
   },
   {
-      icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/solidity.png?raw=true",
-      extensions: ["sol"]
-  } 
+    icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/solidity.png?raw=true",
+    extensions: ["sol"],
+  },
+  {
+    icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/test.png?raw=true",
+    extensions: ["test", "jest"],
+  },
+  {
+    icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/lock.png?raw=true",
+    extensions: ["lock"],
+  },
 ];
 
 const basicMap = [
@@ -209,7 +217,9 @@ setTimeout(() => {
         myCustomMap.find(
           (element) => element.extensions.indexOf(fileExtension) > -1
         )?.icon ||
-        "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true";
+        ([...parentElement.children][0].innerText.split(".").length < 2
+          ? "https://github.com/lnardon/HubIcons/blob/master/icons/3d/folder.png?raw=true"
+          : "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true");
       files[i].children[0].removeChild(files[i].children[0].children.item(0));
       files[i].children[0].append(imageElement);
       files[i].children[0].style.display = "flex";
@@ -234,10 +244,12 @@ setTimeout(() => {
           myCustomMap.find(
             (element) => element.extensions.indexOf(fileExtension) > -1
           )?.icon ||
-          "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true";
+          ([...parentElement.children][0].innerText.split(".").length < 2
+            ? "https://github.com/lnardon/HubIcons/blob/master/icons/3d/folder.png?raw=true"
+            : "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true");
         parentElement.removeChild(parentElement.children.item(0));
         parentElement?.prepend(imageElement);
       }
     }
   }
-}, 1000);
+}, 200);
