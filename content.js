@@ -112,6 +112,10 @@ const myCustomMap = [
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/lock.png?raw=true",
     extensions: ["lock"],
   },
+  {
+    icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/terminal.png?raw=true",
+    extensions: ["sh", "bashrc", "zshrc", "bash", "shell"],
+  }
 ];
 
 const basicMap = [
