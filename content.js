@@ -1,5 +1,65 @@
-// TODO: Delete this and use only local images
-const myCustomMap = [
+setTimeout(() => {
+  let files;
+  const repoFirstPageIconSection = document.querySelectorAll(".Details");
+
+  if (repoFirstPageIconSection.length > 0) {
+    files = [
+      ...document.querySelectorAll(".Details").item(1).children[0].children,
+    ].slice(1);
+    for (let i = 0; i < files.length; i++) {
+      const parentElement = files[i].children[1];
+      const fileExtension = parentElement.children
+        .item(0)
+        .innerText.split(".")
+        .pop()
+        .toLowerCase();
+
+      const imageElement = createImageElement(fileExtension, parentElement);
+      const container = files[i].children[0];
+      container.removeChild(container.children.item(0));
+      container.append(imageElement);
+      container.style.display = "flex";
+      container.style.alignItems = "center";
+      container.style.justifyContent = "center";
+    }
+  } else {
+    files = [...document.querySelectorAll("tbody").item(0).children];
+    for (let i = 0; i < files.length; i++) {
+      const parentElement = files[i]?.children[1]?.children[0];
+      if (parentElement) {
+        const fileName = parentElement.children
+          .item(1)
+          .querySelector("a")
+          ?.innerText?.split(".");
+        const fileHasExtension = fileName.length < 2;
+        const fileExtension = fileName[fileName.length - 1];
+
+        const imageElement = createImageElement(
+          fileExtension,
+          fileHasExtension
+        );
+        parentElement.removeChild(parentElement.children.item(0));
+        parentElement.prepend(imageElement);
+      }
+    }
+  }
+}, 250);
+
+function createImageElement(fileExtension, fileHasExtension) {
+  const imageElement = document.createElement("img");
+  imageElement.style.width = "1.125rem";
+  imageElement.style.height = "1.125rem";
+  imageElement.src =
+    nrdTheme.find((element) => element.extensions.indexOf(fileExtension) > -1)
+      ?.icon ||
+    (fileHasExtension
+      ? "https://github.com/lnardon/HubIcons/blob/master/icons/3d/folder.png?raw=true"
+      : "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true");
+  return imageElement;
+}
+
+// ONLY THEMES CONFIG BELOW
+const nrdTheme = [
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/javascript.png?raw=true",
     extensions: ["js", "mjs"],
@@ -115,10 +175,10 @@ const myCustomMap = [
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/terminal.png?raw=true",
     extensions: ["sh", "bashrc", "zshrc", "bash", "shell"],
-  }
+  },
 ];
 
-const basicMap = [
+const basicTheme = [
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/javascript.png?raw=true",
     extensions: ["js", "mjs"],
@@ -200,60 +260,3 @@ const basicMap = [
     extensions: ["env", "env.local", "env.development", "env.test", "env.prod"],
   },
 ];
-
-setTimeout(() => {
-  let files;
-  const repoFirstPageIconSection = document.querySelectorAll(".Details");
-  if (repoFirstPageIconSection.length > 0) {
-    files = [
-      ...[...document.querySelectorAll(".Details")][1].children[0].children,
-    ].slice(1);
-    for (let i = 0; i < files.length; i++) {
-      let parentElement = files[i].children[1];
-      let fileExtension = [...parentElement.children][0].innerText
-        .split(".")
-        .pop()
-        .toLowerCase();
-      let imageElement = document.createElement("img");
-      imageElement.style.width = "1rem";
-      imageElement.style.height = "1rem";
-      imageElement.src =
-        myCustomMap.find(
-          (element) => element.extensions.indexOf(fileExtension) > -1
-        )?.icon ||
-        ([...parentElement.children][0].innerText.split(".").length < 2
-          ? "https://github.com/lnardon/HubIcons/blob/master/icons/3d/folder.png?raw=true"
-          : "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true");
-      files[i].children[0].removeChild(files[i].children[0].children.item(0));
-      files[i].children[0].append(imageElement);
-      files[i].children[0].style.display = "flex";
-      files[i].children[0].style.alignItems = "center";
-      files[i].children[0].style.justifyContent = "center";
-    }
-  } else {
-    files = [...[...document.querySelectorAll("tbody")][0].children];
-    for (let i = 0; i < files.length; i++) {
-      let parentElement = files[i]?.children[1]?.children[0];
-      if (parentElement) {
-        let fileExtension = parentElement?.children
-          ? [...parentElement.children][1]
-              .querySelector("a")
-              ?.innerText?.split(".")
-              .pop()
-          : [];
-        let imageElement = document.createElement("img");
-        imageElement.style.width = "1rem";
-        imageElement.style.height = "1rem";
-        imageElement.src =
-          myCustomMap.find(
-            (element) => element.extensions.indexOf(fileExtension) > -1
-          )?.icon ||
-          ([...parentElement.children][0].innerText.split(".").length < 2
-            ? "https://github.com/lnardon/HubIcons/blob/master/icons/3d/folder.png?raw=true"
-            : "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true");
-        parentElement.removeChild(parentElement.children.item(0));
-        parentElement?.prepend(imageElement);
-      }
-    }
-  }
-}, 200);
