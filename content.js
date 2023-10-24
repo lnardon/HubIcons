@@ -7,21 +7,23 @@ setTimeout(() => {
       ...document.querySelectorAll(".Details").item(1).children[0].children,
     ].slice(1);
     for (let i = 0; i < files.length; i++) {
-      const parentElement = files[i].children[1];
-      const fileExtension = parentElement.children
-        .item(0)
-        .innerText.split(".")
-        .pop()
-        .toLowerCase();
+            const parentElement = files[i].children[1];
+            const fileHasExtension = parentElement.children.item(0).innerText.includes(".");
 
-      const imageElement = createImageElement(fileExtension, parentElement);
-      const container = files[i].children[0];
-      container.removeChild(container.children.item(0));
-      container.append(imageElement);
-      container.style.display = "flex";
-      container.style.alignItems = "center";
-      container.style.justifyContent = "center";
-    }
+            const fileExtension = parentElement.children
+            .item(0)
+            .innerText.split(".")
+            .pop()
+            .toLowerCase();
+
+            const imageElement = createImageElement(fileExtension, fileHasExtension);
+            const container = files[i].children[0];
+            container.removeChild(container.children.item(0));
+            container.append(imageElement);
+            container.style.display = "flex";
+            container.style.alignItems = "center";
+            container.style.justifyContent = "center";
+        }
   } else {
     files = [...document.querySelectorAll("tbody").item(0).children];
     for (let i = 0; i < files.length; i++) {
@@ -42,19 +44,51 @@ setTimeout(() => {
         parentElement.prepend(imageElement);
       }
     }
+
+    setTimeout(() => {
+      const folders = [
+        ...document.querySelectorAll("[role='tree']").item(0).children,
+      ];
+      for (let i = 0; i < folders.length; i++) {
+        const files =
+          folders[i].children.item(1) || folders[i].children.item(0);
+        console.log(files, "DIV");
+        let isFile = files.tagName == "DIV";
+        if (isFile) {
+          for (let i = 0; i < files.length; i++) {
+            const parentElement = files[i]?.children[1]?.children[1];
+            if (parentElement) {
+              const fileName = parentElement.children
+                .item(2)
+                .querySelector("a")
+                ?.innerText?.split(".");
+              const fileHasExtension = parentElement.children.item(2).querySelector("a").innerText.includes(".");
+              const fileExtension = fileName[fileName.length - 1];
+              console.log(fileHasExtension,fileExtension)
+              const imageElement = createImageElement(
+                fileExtension,
+                fileHasExtension
+              );
+              parentElement.removeChild(parentElement.children.item(0));
+              parentElement.prepend(imageElement);
+            }
+          }
+        }
+      }
+    }, 250);
   }
 }, 250);
 
 function createImageElement(fileExtension, fileHasExtension) {
-  const imageElement = document.createElement("img");
+  let imageElement = document.createElement("img");
   imageElement.style.width = "1.125rem";
   imageElement.style.height = "1.125rem";
   imageElement.src =
     nrdTheme.find((element) => element.extensions.indexOf(fileExtension) > -1)
       ?.icon ||
     (fileHasExtension
-      ? "https://github.com/lnardon/HubIcons/blob/master/icons/3d/folder.png?raw=true"
-      : "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true");
+      ? "https://github.com/lnardon/HubIcons/blob/master/icons/3d/unknown.png?raw=true"
+      : "https://github.com/lnardon/HubIcons/blob/master/icons/3d/folder.png?raw=true");
   return imageElement;
 }
 
@@ -134,7 +168,7 @@ const nrdTheme = [
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/image.png?raw=true",
-    extensions: ["svg", "png", "jpg", "gif", "jpeg"],
+    extensions: ["svg", "png", "jpg", "gif", "jpeg", "webp", "obj", "mtl", "blend"],
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/docker.png?raw=true",
