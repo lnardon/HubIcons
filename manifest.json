@@ -3,7 +3,7 @@
   "name": "Hub Icons",
   "description": "Extension to add iconography to files on Github. Open source extension by github.com/lnardon.",
   "version": "0.1",
-  "permissions": ["scripting", "storage", "activeTab", "tabs"],
+  "permissions": ["scripting", "storage", "activeTab", "tabs", "webNavigation"],
   "host_permissions": ["https://www.github.com/*"],
   "background": {
     "service_worker": "./background.js"

@@ -1,4 +1,4 @@
-setTimeout(() => {
+function changeIcons() {
   let files;
   const repoFirstPageIconSection = document.querySelectorAll(".Details");
 
@@ -7,45 +7,49 @@ setTimeout(() => {
       ...document.querySelectorAll(".Details").item(1).children[0].children,
     ].slice(1);
     for (let i = 0; i < files.length; i++) {
-            const parentElement = files[i].children[1];
-            const fileHasExtension = parentElement.children.item(0).innerText.includes(".");
+      const parentElement = files[i].children[1];
+      const fileHasExtension = parentElement.children
+        .item(0)
+        .innerText.includes(".");
 
-            const fileExtension = parentElement.children
-            .item(0)
-            .innerText.split(".")
-            .pop()
-            .toLowerCase();
+      const fileExtension = parentElement.children
+        .item(0)
+        .innerText.split(".")
+        .pop()
+        .toLowerCase();
 
-            const imageElement = createImageElement(fileExtension, fileHasExtension);
-            const container = files[i].children[0];
-            container.removeChild(container.children.item(0));
-            container.append(imageElement);
-            container.style.display = "flex";
-            container.style.alignItems = "center";
-            container.style.justifyContent = "center";
-        }
-  } else {
-    files = [...document.querySelectorAll("tbody").item(0).children];
-    for (let i = 0; i < files.length; i++) {
-      const parentElement = files[i]?.children[1]?.children[0];
-      if (parentElement) {
-        const fileName = parentElement.children
-          .item(1)
-          .querySelector("a")
-          ?.innerText?.split(".");
-        const fileHasExtension = fileName.length < 2;
-        const fileExtension = fileName[fileName.length - 1];
-
-        const imageElement = createImageElement(
-          fileExtension,
-          fileHasExtension
-        );
-        parentElement.removeChild(parentElement.children.item(0));
-        parentElement.prepend(imageElement);
-      }
+      const imageElement = createImageElement(fileExtension, fileHasExtension);
+      const container = files[i].children[0];
+      container.removeChild(container.children.item(0));
+      container.append(imageElement);
+      container.style.display = "flex";
+      container.style.alignItems = "center";
+      container.style.justifyContent = "center";
     }
-
+  } else {
     setTimeout(() => {
+      files = [...document.querySelectorAll("tbody").item(0).children];
+      for (let i = 0; i < files.length; i++) {
+        const parentElement = files[i]?.children[1]?.children[0];
+        if (parentElement) {
+          const fileName = parentElement.children
+            .item(1)
+            .querySelector("a")
+            ?.innerText?.split(".");
+          const fileHasExtension = parentElement.children
+            .item(1)
+            .querySelector("a")
+            ?.innerText?.includes(".");
+          const fileExtension = fileName[fileName.length - 1];
+          const imageElement = createImageElement(
+            fileExtension,
+            fileHasExtension
+          );
+          parentElement.removeChild(parentElement.children.item(0));
+          parentElement.prepend(imageElement);
+        }
+      }
+
       const folders = [
         ...document.querySelectorAll("[role='tree']").item(0).children,
       ];
@@ -62,9 +66,11 @@ setTimeout(() => {
                 .item(2)
                 .querySelector("a")
                 ?.innerText?.split(".");
-              const fileHasExtension = parentElement.children.item(2).querySelector("a").innerText.includes(".");
+              const fileHasExtension = parentElement.children
+                .item(2)
+                .querySelector("a")
+                .innerText.includes(".");
               const fileExtension = fileName[fileName.length - 1];
-              console.log(fileHasExtension,fileExtension)
               const imageElement = createImageElement(
                 fileExtension,
                 fileHasExtension
@@ -75,9 +81,9 @@ setTimeout(() => {
           }
         }
       }
-    }, 250);
+    }, 500);
   }
-}, 250);
+}
 
 function createImageElement(fileExtension, fileHasExtension) {
   let imageElement = document.createElement("img");
@@ -91,6 +97,12 @@ function createImageElement(fileExtension, fileHasExtension) {
       : "https://github.com/lnardon/HubIcons/blob/master/icons/3d/folder.png?raw=true");
   return imageElement;
 }
+
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  if (message.type === "githubPageLoaded") {
+    changeIcons();
+  }
+});
 
 // ONLY THEMES CONFIG BELOW
 const nrdTheme = [
@@ -168,7 +180,17 @@ const nrdTheme = [
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/image.png?raw=true",
-    extensions: ["svg", "png", "jpg", "gif", "jpeg", "webp", "obj", "mtl", "blend"],
+    extensions: [
+      "svg",
+      "png",
+      "jpg",
+      "gif",
+      "jpeg",
+      "webp",
+      "obj",
+      "mtl",
+      "blend",
+    ],
   },
   {
     icon: "https://github.com/lnardon/HubIcons/blob/master/icons/3d/docker.png?raw=true",
