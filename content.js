@@ -1,5 +1,5 @@
 function changeIcons() {
-  let files;
+  let files = [];
   const repoFirstPageIconSection = document.querySelectorAll(".Details");
 
   if (repoFirstPageIconSection.length > 0) {
@@ -26,37 +26,37 @@ function changeIcons() {
       container.style.alignItems = "center";
       container.style.justifyContent = "center";
     }
-  } else {
+  } else if (document.querySelectorAll("tbody")?.item(0)?.children.length > 0) {
     setTimeout(() => {
       files = [...document.querySelectorAll("tbody").item(0).children];
       for (let i = 0; i < files.length; i++) {
         const parentElement = files[i]?.children[1]?.children[0];
         if (parentElement) {
           const fileName = parentElement.children
-            .item(1)
-            .querySelector("a")
-            ?.innerText?.split(".");
+            ?.item(1)
+            ?.querySelector("a")
+            ?.innerText.split(".");
           const fileHasExtension = parentElement.children
-            .item(1)
-            .querySelector("a")
-            ?.innerText?.includes(".");
-          const fileExtension = fileName[fileName.length - 1];
+            ?.item(1)
+            ?.querySelector("a")
+            ?.innerText.includes(".");
+          const fileExtension = fileName.length
+            ? fileName[fileName?.length - 1]
+            : "none";
           const imageElement = createImageElement(
             fileExtension,
             fileHasExtension
           );
-          parentElement.removeChild(parentElement.children.item(0));
+          parentElement.removeChild(parentElement.children?.item(0));
           parentElement.prepend(imageElement);
         }
       }
-
       const folders = [
         ...document.querySelectorAll("[role='tree']").item(0).children,
       ];
       for (let i = 0; i < folders.length; i++) {
         const files =
           folders[i].children.item(1) || folders[i].children.item(0);
-        console.log(files, "DIV");
         let isFile = files.tagName == "DIV";
         if (isFile) {
           for (let i = 0; i < files.length; i++) {
@@ -81,7 +81,7 @@ function changeIcons() {
           }
         }
       }
-    }, 500);
+    }, 250);
   }
 }
 
